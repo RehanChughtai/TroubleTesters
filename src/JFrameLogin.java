@@ -1,0 +1,383 @@
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.prefs.Preferences;
+import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author Administrator
+ */
+public class JFrameLogin extends javax.swing.JFrame {
+
+    public static Clip MediaPlayerBackground = null;
+    public static Clip MediaPlayerGameOver = null;
+    public static boolean MediaPlayerMuted = false; 
+    
+    public static UserSecurityDB UserSecurity = null;
+    public static UserQuestionsDB UserQuestions = null;
+    public static UserScoresDB UserScores = null;
+    
+    public static String CurrentUsername = null;
+    public static String CurrentPassword = null;
+    
+    public static String AdminUsername = null;
+    
+    public Preferences Settings = null;
+    
+    /**
+     * Creates new form JFrameMain
+     */
+    public JFrameLogin() 
+    {
+        initComponents();
+
+        // setting are stored in HKEY_CURRENT_USER\Software\JavaSoft\Prefs
+        Settings = Preferences.userRoot().node("RehanGame");
+
+        // set the admin user username here for now
+        // this should real be done by an install script
+        Settings.put("AdminUsername", "admin");
+        
+        jCheckBoxMute.setSelected(Settings.getBoolean("MuteSound", false));
+        AdminUsername = Settings.get("AdminUsername", "admin");
+        
+        MediaPlayerMuted = jCheckBoxMute.isSelected();
+        
+        // set the background image on the form
+        try
+        {
+            Image img = ImageIO.read(new File("Background.jpg"));
+            BackgroundPanel backPanel = new BackgroundPanel(img, BackgroundPanel.SCALED, 1.0f, 0.5f);
+            getContentPane().add(backPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, this.getWidth(), this.getHeight()));
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Login Screen", JOptionPane.WARNING_MESSAGE);
+        }
+
+        // center the form on the screen
+        this.setLocationRelativeTo(null);
+
+        // make the form non-resizeable
+        setResizable(false);
+        
+        // set cmdLogin as the default button
+        //JRootPane rootPane = SwingUtilities.getRootPane(cmdLogin); 
+        //rootPane.setDefaultButton(cmdLogin);        
+       
+        // handle the return key in the username text field
+        jTextFieldUsername.addActionListener
+        (
+            new ActionListener() 
+            {
+                @Override public void actionPerformed(ActionEvent e) 
+                {
+                    jButtonLoginActionPerformed(e);
+                }
+            }
+        );
+                
+        // handle the return key in the password text field
+        jPasswordFieldPassword.addActionListener
+        (
+            new ActionListener() 
+            {
+                @Override public void actionPerformed(ActionEvent e) 
+                {
+                    jButtonLoginActionPerformed(e);
+                }
+            }
+        );
+
+        // load the the databases
+        UserSecurity = new UserSecurityDB();
+        UserSecurity.Load();
+        
+        UserQuestions = new UserQuestionsDB();
+        UserQuestions.Load();
+
+        UserScores = new UserScoresDB();
+        UserScores.Load();
+        
+        
+        // load the sound files
+        try 
+        {
+            AudioInputStream backgroundStream = AudioSystem.getAudioInputStream(new File("backsound.wav").getAbsoluteFile());
+            MediaPlayerBackground = AudioSystem.getClip();
+            MediaPlayerBackground.open(backgroundStream);
+            
+            AudioInputStream gameOverStream = AudioSystem.getAudioInputStream(new File("gameover.wav").getAbsoluteFile());
+            MediaPlayerGameOver = AudioSystem.getClip();
+            MediaPlayerGameOver.open(gameOverStream);
+        } 
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Login Screen", JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (!jCheckBoxMute.isSelected())
+        {
+            // start the background sound
+            JFrameLogin.StartBackgroundSound();
+        }
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextFieldUsername = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jButtonLogin = new javax.swing.JButton();
+        jPasswordFieldPassword = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonRegister = new javax.swing.JButton();
+        jCheckBoxMute = new javax.swing.JCheckBox();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login Screen");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cooltext226898756278317.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 290, 30));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/button_password.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 160, 50));
+
+        jTextFieldUsername.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsernameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 170, 50));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/button_username.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 160, -1));
+
+        jButtonLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButtonLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/button_login (1).png"))); // NOI18N
+        jButtonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 100, 40));
+
+        jPasswordFieldPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jPasswordFieldPassword.setEchoChar('\u2022');
+        jPasswordFieldPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordFieldPasswordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jPasswordFieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 170, 50));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/cooltext215249365635443.png"))); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 460, 90));
+
+        jButtonRegister.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/button_register (1).png"))); // NOI18N
+        jButtonRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegisterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 320, 110, 40));
+
+        jCheckBoxMute.setText("Mute Sound");
+        jCheckBoxMute.setOpaque(false);
+        jCheckBoxMute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMuteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jCheckBoxMute, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, -1));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButtonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLoginActionPerformed
+        
+        CurrentUsername = jTextFieldUsername.getText();
+        CurrentPassword = new String(jPasswordFieldPassword.getPassword());
+        
+        // reload the user login database
+        UserSecurity.Load();
+        
+        if (UserSecurity.Authenticate(CurrentUsername, CurrentPassword))
+        {
+            this.setVisible(false);
+            
+            JFrameMainMenu frm = new JFrameMainMenu();
+            frm.setVisible(true);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Authentication Failed!\r\n\r\nPlease Try again.", "Login Screen", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButtonLoginActionPerformed
+
+    private void jButtonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegisterActionPerformed
+        JFrameRegister frameMakeUser = new JFrameRegister();
+        frameMakeUser.setVisible(true);
+    }//GEN-LAST:event_jButtonRegisterActionPerformed
+
+    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
+
+    private void jPasswordFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordFieldPasswordActionPerformed
+
+    private void jCheckBoxMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMuteActionPerformed
+        
+        MediaPlayerMuted = jCheckBoxMute.isSelected();
+        
+        if (MediaPlayerMuted)
+        {
+            JFrameLogin.StopBackgroundSound();
+            JFrameLogin.StopGameOverSound();
+        }
+        else
+        {
+            JFrameLogin.StartBackgroundSound();
+        }
+        
+        Settings.putBoolean("MuteSound", MediaPlayerMuted);
+
+    }//GEN-LAST:event_jCheckBoxMuteActionPerformed
+
+    public static void StartBackgroundSound() 
+    {
+        if (MediaPlayerMuted) return;
+        
+        try 
+        {
+            MediaPlayerBackground.setFramePosition(0);
+            MediaPlayerBackground.loop(Clip.LOOP_CONTINUOUSLY);
+            MediaPlayerBackground.start();
+        } 
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Login Screen", JOptionPane.WARNING_MESSAGE);
+        }
+    }    
+
+    public static void PlayGameOverSound() 
+    {
+        if (MediaPlayerMuted) return;
+        
+        try 
+        {
+            MediaPlayerGameOver.setFramePosition(0);
+            MediaPlayerGameOver.start();
+        } 
+        catch(Exception ex) 
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Login Screen", JOptionPane.WARNING_MESSAGE);
+        }
+    }    
+    
+    public static void StopBackgroundSound()
+    {
+        if (null != MediaPlayerBackground)
+        {
+            MediaPlayerBackground.stop();
+            MediaPlayerBackground.flush();
+        }
+    }
+
+    public static void StopGameOverSound()
+    {
+        if (null != MediaPlayerGameOver)
+        {
+            MediaPlayerGameOver.stop();
+            MediaPlayerGameOver.flush();
+        }
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(JFrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(JFrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(JFrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(JFrameLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                new JFrameLogin().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonLogin;
+    private javax.swing.JButton jButtonRegister;
+    private javax.swing.JCheckBox jCheckBoxMute;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPasswordField jPasswordFieldPassword;
+    private javax.swing.JTextField jTextFieldUsername;
+    // End of variables declaration//GEN-END:variables
+}

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="RehanGame-v4">
+  <ClassDiagramComponents>
+    <Class name="BackgroundPanel" package="" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="SCALED" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="TILED" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="ACTUAL" type="int" visibility="public" isStatic="true" isFinal="true"/>
+        <Field name="painter" type="Paint" visibility="private"/>
+        <Field name="image" type="Image" visibility="private"/>
+        <Field name="style" type="int" visibility="private"/>
+        <Field name="alignmentX" type="float" visibility="private"/>
+        <Field name="alignmentY" type="float" visibility="private"/>
+        <Field name="isTransparentAdd" type="boolean" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Image" name="image"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Image" name="image"/>
+          <Argument type="int" name="style"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Image" name="image"/>
+          <Argument type="int" name="style"/>
+          <Argument type="float" name="alignmentX"/>
+          <Argument type="float" name="alignmentY"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Paint" name="painter"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setImage" returnType="void" visibility="public">
+          <Argument type="Image" name="image"/>
+        </Method>
+        <Method name="setStyle" returnType="void" visibility="public">
+          <Argument type="int" name="style"/>
+        </Method>
+        <Method name="setPaint" returnType="void" visibility="public">
+          <Argument type="Paint" name="painter"/>
+        </Method>
+        <Method name="setImageAlignmentX" returnType="void" visibility="public">
+          <Argument type="float" name="alignmentX"/>
+        </Method>
+        <Method name="setImageAlignmentY" returnType="void" visibility="public">
+          <Argument type="float" name="alignmentY"/>
+        </Method>
+        <Method name="add" returnType="void" visibility="public">
+          <Argument type="JComponent" name="component"/>
+        </Method>
+        <Method name="getPreferredSize" returnType="Dimension" visibility="public"/>
+        <Method name="add" returnType="void" visibility="public">
+          <Argument type="JComponent" name="component"/>
+          <Argument type="Object" name="constraints"/>
+        </Method>
+        <Method name="setTransparentAdd" returnType="void" visibility="public">
+          <Argument type="boolean" name="isTransparentAdd"/>
+        </Method>
+        <Method name="makeComponentTransparent" returnType="void" visibility="private">
+          <Argument type="JComponent" name="component"/>
+        </Method>
+        <Method name="paintComponent" returnType="void" visibility="protected">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="drawScaled" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="drawTiled" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="drawActual" returnType="void" visibility="private">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Enums" package="" visibility="public" xPosition="502.0" yPosition="29.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="JFrameGameBoard" package="" visibility="public" xPosition="731.0" yPosition="29.0">
+      <Fields>
+        <Field name="ARCADE_TIMEOUT_SECONDS" type="int" visibility="private" isStatic="true" isFinal="true"/>
+        <Field name="_arcadeTimeSeconds" type="int" visibility="private"/>
+        <Field name="_timerGlobal" type="Timer" visibility="private"/>
+        <Field name="_startTime" type="Date" visibility="private"/>
+        <Field name="_gameType" type="Enums.EGameType" visibility="private"/>
+        <Field name="_numberOfQuestions" type="int" visibility="private"/>
+        <Field name="_numberOfSeconds" type="int" visibility="private"/>
+        <Field name="_currentQuestionIndex" type="int" visibility="private"/>
+        <Field name="_currentScorePass" type="int" visibility="private"/>
+        <Field name="_currentScoreFail" type="int" visibility="private"/>
+        <Field name="_userQuestions" type="List&lt;String&gt;" visibility="private"/>
+        <Field name="_currentUserScore" type="UserScore" visibility="private"/>
+        <Field name="jButtonCheck" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonClose" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonStart" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelClock" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelHeader" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelQuestion" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelScoreFail" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelScorePass" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelTotalScore" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanel2" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jTextAnswer" type="javax.swing.JTextField" visibility="private"/>
+        <Field name="jTextQuestion" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getNumberOfQuestions" returnType="int" visibility="public"/>
+        <Method name="setNumberOfQuestions" returnType="void" visibility="public">
+          <Argument type="int" name="numberOfQuestions"/>
+        </Method>
+        <Method name="getNumberOfSeconds" returnType="int" visibility="public"/>
+        <Method name="setNumberOfSeconds" returnType="void" visibility="public">
+          <Argument type="int" name="numberOfSeconds"/>
+        </Method>
+        <Method name="getGameType" returnType="Enums.EGameType" visibility="public"/>
+        <Method name="setGameType" returnType="void" visibility="public">
+          <Argument type="Enums.EGameType" name="gameType"/>
+        </Method>
+        <Method name="_showCurrentQuestionIndex" returnType="void" visibility="private">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="_showCurrentScorePass" returnType="void" visibility="private"/>
+        <Method name="_showCurrentScoreFail" returnType="void" visibility="private"/>
+        <Method name="_showCurrentTotalScore" returnType="void" visibility="private"/>
+        <Method name="_startTimerGlobal" returnType="void" visibility="private"/>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButtonStartActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonCloseActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonCheckActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTextQuestionActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTextAnswerActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="_loadUserQuestions" returnType="void" visibility="private"/>
+        <Method name="_showNextQuestion" returnType="void" visibility="private"/>
+        <Method name="_checkAnswer" returnType="void" visibility="private"/>
+        <Method name="_showGameOver" returnType="void" visibility="private"/>
+        <Method name="_resetGame" returnType="void" visibility="private"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JFrameGameSelection" package="" visibility="public" xPosition="2575.0" yPosition="659.0">
+      <Fields>
+        <Field name="cmdPlay" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonMainMenu" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel10" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel11" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel12" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel5" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel6" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel7" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel8" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel9" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelArcadeScore" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelClassicScore" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelLastGame" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelTotalScore" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabelUsername" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelArcade" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jPanelClassic" type="javax.swing.JPanel" visibility="private"/>
+        <Field name="jRadioButtonArcade" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="jRadioButtonClassic" type="javax.swing.JRadioButton" visibility="private"/>
+        <Field name="jSpinnerNumberOfQuestions" type="javax.swing.JSpinner" visibility="private"/>
+        <Field name="jSpinnerNumberOfSeconds" type="javax.swing.JSpinner" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="cmdPlayActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jRadioButtonClassicActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jRadioButtonArcadeActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonMainMenuActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JFrameLogin" package="" visibility="public" xPosition="1852.0" yPosition="449.0">
+      <Fields>
+        <Field name="MediaPlayerBackground" type="Clip" visibility="public" isStatic="true"/>
+        <Field name="MediaPlayerGameOver" type="Clip" visibility="public" isStatic="true"/>
+        <Field name="MediaPlayerMuted" type="boolean" visibility="public" isStatic="true"/>
+        <Field name="UserSecurity" type="UserSecurityDB" visibility="public" isStatic="true"/>
+        <Field name="UserQuestions" type="UserQuestionsDB" visibility="public" isStatic="true"/>
+        <Field name="UserScores" type="UserScoresDB" visibility="public" isStatic="true"/>
+        <Field name="CurrentUsername" type="String" visibility="public" isStatic="true"/>
+        <Field name="CurrentPassword" type="String" visibility="public" isStatic="true"/>
+        <Field name="AdminUsername" type="String" visibility="public" isStatic="true"/>
+        <Field name="Settings" type="Preferences" visibility="public"/>
+        <Field name="jButtonLogin" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonRegister" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jCheckBoxMute" type="javax.swing.JCheckBox" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPasswordFieldPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jTextFieldUsername" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButtonLoginActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonRegisterActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jTextFieldUsernameActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jPasswordFieldPasswordActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jCheckBoxMuteActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="StartBackgroundSound" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="PlayGameOverSound" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="StopBackgroundSound" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="StopGameOverSound" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JFrameMainMenu" package="" visibility="public" xPosition="1889.0" yPosition="20.0">
+      <Fields>
+        <Field name="jButtonExit" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonLeaderBoard" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonPlayGame" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonRegister" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonRules" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButtonRulesActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonExitActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonLeaderBoardActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonPlayGameActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonRegisterActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JFrameRegister" package="" visibility="public" xPosition="2561.0" yPosition="272.0">
+      <Fields>
+        <Field name="jButtonCancel" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButtonRegister" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel4" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPasswordFieldPassword" type="javax.swing.JPasswordField" visibility="private"/>
+        <Field name="jTextFieldUsername" type="javax.swing.JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButtonRegisterActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonCancelActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+        <Method name="_registerUser" returnType="boolean" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="JFrameRules" package="" visibility="public" xPosition="2561.0" yPosition="20.0">
+      <Fields>
+        <Field name="jButtonOK" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="jButtonOKActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JFrameScoreBoard" package="" visibility="public" xPosition="20.0" yPosition="693.0">
+      <Fields>
+        <Field name="jPanelBack" type="BackgroundPanel" visibility="private"/>
+        <Field name="jTable" type="JTable" visibility="private"/>
+        <Field name="jPanelFind" type="JPanel" visibility="private"/>
+        <Field name="jLabelFind" type="JLabel" visibility="private"/>
+        <Field name="jTextFieldFind" type="JTextField" visibility="private"/>
+        <Field name="jButtonFind" type="JButton" visibility="private"/>
+        <Field name="jButtonClose" type="JButton" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="jButtonCloseActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButtonFindActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserQuestionsDB" package="" visibility="public" xPosition="2048.0" yPosition="1246.0">
+      <Fields>
+        <Field name="_lastError" type="String" visibility="private"/>
+        <Field name="_dbFilePath" type="String" visibility="private"/>
+        <Field name="_separator" type="String" visibility="protected"/>
+        <Field name="_questions" type="Map&lt;String, String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getLastError" returnType="String" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public">
+          <Argument type="String" name="dbFilePath"/>
+        </Method>
+        <Method name="GetRandomQuestions" returnType="List&lt;String&gt;" visibility="public">
+          <Argument type="int" name="count"/>
+        </Method>
+        <Method name="GetAnswer" returnType="String" visibility="public">
+          <Argument type="String" name="question"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserScore" package="" visibility="public" xPosition="1131.0" yPosition="1198.0">
+      <Fields>
+        <Field name="_username" type="String" visibility="private"/>
+        <Field name="_lastGameTimestamp" type="String" visibility="private"/>
+        <Field name="_classicScore" type="int" visibility="private"/>
+        <Field name="_arcadeScore" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="lastGameTimestamp"/>
+          <Argument type="int" name="classicScore"/>
+          <Argument type="int" name="arcadeScore"/>
+        </Constructor>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getScoreTotal" returnType="int" visibility="public"/>
+        <Method name="getArcadeScore" returnType="int" visibility="public"/>
+        <Method name="setArcadeScore" returnType="void" visibility="public">
+          <Argument type="int" name="arcadeScore"/>
+        </Method>
+        <Method name="getClassicScore" returnType="int" visibility="public"/>
+        <Method name="setClassicScore" returnType="void" visibility="public">
+          <Argument type="int" name="classicScore"/>
+        </Method>
+        <Method name="getLastGameTimestamp" returnType="String" visibility="public"/>
+        <Method name="setLastGameTimestamp" returnType="void" visibility="public">
+          <Argument type="String" name="lastGameTimestamp"/>
+        </Method>
+        <Method name="getUsername" returnType="String" visibility="public"/>
+        <Method name="setUsername" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserScoresDB" package="" visibility="public" xPosition="1467.0" yPosition="592.0">
+      <Fields>
+        <Field name="_lastError" type="String" visibility="private"/>
+        <Field name="_dbFilePath" type="String" visibility="private"/>
+        <Field name="_separator" type="String" visibility="protected"/>
+        <Field name="_scores" type="Map&lt;String, UserScore&gt;" visibility="private"/>
+        <Field name="_positions" type="Map&lt;Integer, String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getPositions" returnType="Map&lt;Integer, String&gt;" visibility="public"/>
+        <Method name="getLastError" returnType="String" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public"/>
+        <Method name="Save" returnType="boolean" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public">
+          <Argument type="String" name="dbFilePath"/>
+        </Method>
+        <Method name="GetUserScore" returnType="UserScore" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="GetUserPosition" returnType="int" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="AddUserScore" returnType="void" visibility="public">
+          <Argument type="UserScore" name="score"/>
+        </Method>
+        <Method name="UpdateUserScore" returnType="void" visibility="public">
+          <Argument type="UserScore" name="score"/>
+        </Method>
+        <Method name="DeleteUserScore" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="UserSecurityDB" package="" visibility="public" xPosition="1477.0" yPosition="29.0">
+      <Fields>
+        <Field name="_lastError" type="String" visibility="private"/>
+        <Field name="_dbFilePath" type="String" visibility="private"/>
+        <Field name="_separator" type="String" visibility="protected"/>
+        <Field name="_database" type="Map&lt;String, String&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getLastError" returnType="String" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public"/>
+        <Method name="Save" returnType="boolean" visibility="public"/>
+        <Method name="Load" returnType="boolean" visibility="public">
+          <Argument type="String" name="dbFilePath"/>
+        </Method>
+        <Method name="Authenticate" returnType="boolean" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="AddUser" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="DeleteUser" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+        </Method>
+        <Method name="SetPassword" returnType="void" visibility="public">
+          <Argument type="String" name="username"/>
+          <Argument type="String" name="newPasssword"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="jPanelBack" source="JFrameScoreBoard" target="BackgroundPanel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_scores" source="UserScoresDB" target="UserScore" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="Map&lt;String, UserScore&gt;"/>
+    <HasRelation name="UserSecurity" source="JFrameLogin" target="UserSecurityDB" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="UserScores" source="JFrameLogin" target="UserScoresDB" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="JFrameGameBoard" target="Enums" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_currentUserScore" source="JFrameGameBoard" target="UserScore" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="UserQuestions" source="JFrameLogin" target="UserQuestionsDB" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="UserScoresDB" target="UserScore" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
